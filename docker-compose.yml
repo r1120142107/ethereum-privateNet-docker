@@ -8,7 +8,7 @@ services:
     links:
       - netstats
     entrypoint: /root/start.sh
-    command: --datadir=~/.ethereum/devchain  --nodekeyhex=8383d8506cc37287883c540425d30f828377e83e7ee7cd2061e927f2d89520a8 --rpcapi "db,personal,eth,net,web3" --rpccorsdomain="*" --networkid=456719 --rpc --rpcaddr="0.0.0.0"
+    command: --datadir=~/.ethereum/devchain --allow-insecure-unlock  --nodekeyhex=8383d8506cc37287883c540425d30f828377e83e7ee7cd2061e927f2d89520a8 --rpcapi "db,personal,eth,net,web3,shh" --rpccorsdomain="*" --networkid=456719 --rpc --rpcaddr="0.0.0.0" --ws --wsorigins=mychat --shh --wsapi "web3,shh,net" 
     volumes:
       - ./genesis/password:/root/genesis/password:ro
       - ./genesis/genesis.json:/root/genesis/genesis.json:ro
@@ -17,6 +17,8 @@ services:
       - "30303:30303"
       - "30303:30303/udp"
       - "8545:8545"
+      - "8546:8546"
+      - "8546:8546/udp"
   eth:
     build: geth-node
     restart: on-failure
@@ -28,7 +30,7 @@ services:
       - ./genesis/password:/root/genesis/password:ro
       - ./genesis/genesis.json:/root/genesis/genesis.json:ro
       - ./genesis/keystore:/root/.ethereum/devchain/keystore:rw
-    command: '--datadir=~/.ethereum/devchain --rpccorsdomain="*" --networkid=456719 --rpc --bootnodes="enode://4494981e8886354a7d566331a0506847007e43b81ad26058a38db66248d4dc3b615af135f8beac80713bfec3f96eb2d7e10251023f38b5ce4de0902c1c6b504d@XXX:30303" --mine'
+    command: '--datadir=~/.ethereum/devchain --rpccorsdomain="*" --networkid=456719 --rpc --bootnodes="enode://4494981e8886354a7d566331a0506847007e43b81ad26058a38db66248d4dc3b615af135f8beac80713bfec3f96eb2d7e10251023f38b5ce4de0902c1c6b504d@XXX:30303" --mine --miner.threads=1'
   netstats:
     build: eth-netstats
     restart: on-failure
@@ -37,3 +39,6 @@ services:
       - WS_SECRET=eth-net-stats-secret
     ports:
       - "3000:3000"
+networks:
+    overlay:
+        driver: overlay
