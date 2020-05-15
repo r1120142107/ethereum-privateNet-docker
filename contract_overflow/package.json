@@ -1,0 +1,28 @@
+{
+  "name": "contract_overflow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "compile": "node scripts/compile.js",
+    "pretest": "npm run compile",
+    "test": "mocha tests/",
+    "predeploy": "npm run compile",
+    "deploy": "node scripts/deploy.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^9.0.0",
+    "ganache": "^6.4.4",
+    "solc": "^0.4.25",
+    "web3": "^1.2.7"
+  },
+  "devDependencies": {
+    "ganache-cli": "^6.9.1",
+    "mocha": "^7.1.2"
+  }
+}
