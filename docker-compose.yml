@@ -30,7 +30,7 @@ services:
       - ./genesis/password:/root/genesis/password:ro
       - ./genesis/genesis.json:/root/genesis/genesis.json:ro
       - ./genesis/keystore:/root/.ethereum/devchain/keystore:rw
-    command: '--datadir=~/.ethereum/devchain --rpccorsdomain="*" --networkid=456719 --rpc --bootnodes="enode://4494981e8886354a7d566331a0506847007e43b81ad26058a38db66248d4dc3b615af135f8beac80713bfec3f96eb2d7e10251023f38b5ce4de0902c1c6b504d@XXX:30303" --mine --miner.threads=1'
+    command: '--datadir=~/.ethereum/devchain --rpccorsdomain="*" --allow-insecure-unlock --networkid=456719 --rpc --bootnodes="enode://4494981e8886354a7d566331a0506847007e43b81ad26058a38db66248d4dc3b615af135f8beac80713bfec3f96eb2d7e10251023f38b5ce4de0902c1c6b504d@XXX:30303" --mine --miner.threads=1'
   netstats:
     build: eth-netstats
     restart: on-failure
